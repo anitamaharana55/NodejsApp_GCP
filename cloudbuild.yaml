@@ -13,7 +13,7 @@ steps:
   - '-c'
   - |
 
-      terraform init
+      terraform init -reconfigure
 - id: 'tf plan'
   name: "hashicorp/terraform:1.3.0"
   entrypoint: 'sh'
