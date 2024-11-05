@@ -8,14 +8,14 @@ steps:
       echo "$BRANCH_NAME"
 - id: 'install checkov'
   name: 'python:3.9'
-  entrypoint: '/bin/bash'
+  entrypoint: 'sh'
   args:
       - '-c'
       - |
         pip install checkov --upgrade pip
 - id: 'run checkov'
   name: 'python:3.9'
-  entrypoint: '/bin/bash'
+  entrypoint: 'sh'
   args:
       - '-c'
       - |
