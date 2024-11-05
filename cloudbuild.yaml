@@ -8,18 +8,20 @@ steps:
       echo "$BRANCH_NAME"
 - id: 'install checkov'
   name: 'python:3.9'
-  entrypoint: 'sh'
+  entrypoint: 'bash'
   args:
       - '-c'
       - |
+       
         pip install checkov --upgrade pip
 - id: 'run checkov'
   name: 'python:3.9'
-  entrypoint: 'sh'
+  entrypoint: 'bash'
   args:
       - '-c'
       - |
-        checkov -d . --output json --quiet  
+         checkov --version
+         checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1) 
 
 
 - id: 'tf init'
