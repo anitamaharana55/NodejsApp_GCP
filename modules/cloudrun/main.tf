@@ -14,9 +14,9 @@ resource "google_cloud_run_service" "default" {
    }
    
 }
-        #  ports {
-        #   container_port = 3000  
-        # }
+         ports {
+          container_port = 3000  
+        }
       }
     }
 
