@@ -13,15 +13,16 @@ steps:
       - '-c'
       - |
        
-        pip install checkov --upgrade pip
+        pip install --upgrade pip
+        pip install checkov
 - id: 'run checkov'
   name: 'python:3.9'
   entrypoint: 'bash'
   args:
       - '-c'
       - |
-         checkov --version
-         checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1) 
+        checkov --version
+        checkov -d  --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1) 
 
 
 - id: 'tf init'
