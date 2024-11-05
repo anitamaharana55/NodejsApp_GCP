@@ -23,7 +23,7 @@ steps:
       - '-c'
       - |
         
-        checkov -d  --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1) 
+        checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1) 
 
 
 - id: 'tf init'
