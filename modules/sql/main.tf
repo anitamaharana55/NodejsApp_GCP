@@ -5,8 +5,13 @@ resource "google_sql_database_instance" "instance" {
   database_version = var.database_version
   settings {
     tier = var.settings.tier
-  }
+          backup_configuration {
+      enabled = true
+      binary_log_enabled = true
+    }
+  
 
+}
   deletion_protection  = var.deletion_protection
 }
 resource "google_sql_user" "myuser" {
