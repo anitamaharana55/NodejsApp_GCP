@@ -8,10 +8,14 @@ resource "google_sql_database_instance" "instance" {
           backup_configuration {
       enabled = true
       binary_log_enabled = true
+      
     }
-  
+      ip_configuration {
+        ssl_mode = true
+    }
 
 }
+
   deletion_protection  = var.deletion_protection
 }
 resource "google_sql_user" "myuser" {

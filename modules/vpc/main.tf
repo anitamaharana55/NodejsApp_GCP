@@ -21,6 +21,7 @@ network       = google_compute_network.network.name
       ip_cidr_range = range.ip_cidr_range
     }
   ]
+  private_ip_google_access = true
 depends_on = [ google_compute_network.network ]
 }
 #Firewall
