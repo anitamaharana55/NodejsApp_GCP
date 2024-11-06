@@ -77,7 +77,7 @@ module "cloudRun" {
   autogenerate_revision_name = each.value["autogenerate_revision_name"]
   timeout_seconds            = each.value["timeout_seconds"]
   service_account_name       = each.value["service_account_name"]
-
+depends_on = [ module.cloudSql ]
 
 }
 module "cloudSql" {
