@@ -43,6 +43,8 @@ module "svc" {
   role         = each.value["role"]
   # members = each.value["service_account_id"]
 }
+
+#contianer registery
 /* module "container_registry" {
   source   = "./modules/Container_Registry"
   for_each = { for i in var.registry_config : i.repository_id => i }
