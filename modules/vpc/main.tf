@@ -14,13 +14,18 @@ ip_cidr_range = var.ip_cidr_range
 region        = var.region
 project                                   = var.project_id
 network       = google_compute_network.network.name
-  secondary_ip_range = [
+secondary_ip_range = [
     for range in var.secondary_ip_range :
     {
       range_name    = range.range_name
       ip_cidr_range = range.ip_cidr_range
     }
   ]
+  log_config {
+    aggregation_interval = "INTERVAL_10_MIN"
+    flow_sampling        = 0.5  # Adjust sampling rate (0.0 to 1.0)
+    metadata             = "INCLUDE_ALL_METADATA"
+  }
   private_ip_google_access = true
 depends_on = [ google_compute_network.network ]
 }
