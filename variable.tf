@@ -19,3 +19,12 @@ variable "secret_config" {
 variable "sql_config" {
 
 }
+
+
+variable "vpc_connector_config" {
+  
+}
+
+variable "domainmapping_config" {
+  
+}

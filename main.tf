@@ -105,3 +105,24 @@ module "secret-manager" {
   label     = each.value["label"]
   location  = each.value["location"]
 }
+
+/* module "serverless_vpc_access" {
+  source = "./modules/vpc_connector"
+  for_each = { for i in var.vpc_connector_config : i.name => i }
+  project_id    =  each.value["project_id"]
+  region        = each.value["region"]
+  name          = each.value["name"] #"serverless-access"
+  network       = each.value["network"] #module.vpc.network_name
+  ip_cidr_range = each.value["ip_cidr_range"] #"10.132.0.0/28"
+} */
+
+
+/* module "domainmapping" {
+  source = "./modules/domainmapping"
+  for_each = { for i in var.domainmapping_config : i.name => i }
+  project_id    =  each.value["project_id"]
+  name          = each.value["name"] #"serverless-access"
+  location = each.value["location"]
+  route_name = each.value["route_name"]
+  metadata_namespace = each.value["metadata_namespace"]
+} */

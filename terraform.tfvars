@@ -89,3 +89,24 @@ secret_config = [{
   label     = "my-label"
   location  = "us-east1"
 }]
+
+
+vpc_connector_config = [
+  {
+  project_id    =  "gcp-cloudrun-nodejs-mysql-app"
+  region        = "us-east1"
+  name          = "wissen-nodejs-app-gcp-vpc-connector"
+  network       = "wissen-nodejs-app-gcp-vpc" #module.vpc.network_name
+  ip_cidr_range = "10.8.0.0/28"
+  }
+]
+
+domainmapping_config = [
+  {
+    project_id    =  "gcp-cloudrun-nodejs-mysql-app"
+    location  = "us-east1"
+    name = "www.wissencloudrun.com"
+    route_name = "wissen-nodejs-app-gcp-cloudrun-mysql"
+    metadata_namespace = "gcp-cloudrun-nodejs-mysql-app"
+  }
+]
