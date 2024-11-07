@@ -8,19 +8,19 @@ project_config = [
 ]
 VPC_config = [
   {
-    name                            = "test-vpc"
+    name                            = "wissen-nodejs-app-gcp-vpc"
     auto_create_subnetworks         = "false"
     routing_mode                    = "GLOBAL"
     project                         = "gcp-cloudrun-nodejs-mysql-app"
     description                     = "new vpc"
     delete_default_routes_on_create = "false"
     mtu                             = 0
-    subnet_name                     = "test-subnetwork"
+    subnet_name                     = "wissen-nodejs-app-gcp-subnetwork"
     ip_cidr_range                   = "10.2.0.0/16"
     region                          = "us-central1"
-    network                         = "test-vpc"
+    network                         = "wissen-nodejs-app-gcp-vpc"
     secondary_ip_range = [{
-      range_name    = "tf-test-secondary-range-update1"
+      range_name    = "tf-wissen-nodejs-app-gcp-secondary-range-update1"
       ip_cidr_range = "192.168.64.0/24"
     }]
     allow = {
@@ -34,8 +34,8 @@ VPC_config = [
 }]
 svc_config = [{
   project      = "gcp-cloudrun-nodejs-mysql-app"
-  account_id   = "test-service-account"
-  display_name = "test Service Account"
+  account_id   = "nodejs-app-gcp-service-account"
+  display_name = "wissen nodejs app gcp Service Account"
   description  = "This is a service account created by Terraform."
   role = "roles/iam.serviceAccountUser"
 }]
@@ -44,20 +44,19 @@ registry_config = [
     project = "gcp-cloudrun-nodejs-mysql-app"
     # location = "US"
     location      = "us-central1"
-    repository_id = "test-repository"
+    repository_id = "wissen-nodejs-app-gcp-repository"
     description   = "example docker repository"
     format        = "DOCKER"
   }
 ]
 cloudrunsql_config = [
   {
-    name       = "test-cloudrun-srv"
+    name       = "wissen-nodejs-app-gcp-cloudrun-mysql"
     location   = "us-central1"
     project_id = "gcp-cloudrun-nodejs-mysql-app"
-    image      = "gcr.io/gcp-cloudrun-nodejs-mysql-app/nodejsapp@sha256:41d634eebdc40336f4458500771b82346b235b74383ad8d728c58b6a4b87af9a"
+    image      = "gcr.io/gcp-cloudrun-nodejs-mysql-app/nodejsapp:latest"
     maxScale   = "10"
-    sql_name   = "cloudrun-sql"
-
+    sql_name   = "wissen-nodejs-app-gcp-mysql"
     client-name                = "terraform"
     autogenerate_revision_name = true
     timeout_seconds            = 6000
@@ -65,7 +64,7 @@ cloudrunsql_config = [
     envs = {
       "port"             = "3000"
       "projectid"        = "277275469326"
-      "dbconnectionname" = "gcp-cloudrun-nodejs-mysql-app:us-central1:cloudrun-sql"
+      "dbconnectionname" = "gcp-cloudrun-nodejs-mysql-app:us-central1:wissen-nodejs-app-gcp-mysql"
 
     }
 
@@ -75,7 +74,7 @@ sql_config = [
   {
     location            = "us-central1"
     project_id          = "gcp-cloudrun-nodejs-mysql-app"
-    sql_name            = "cloudrun-sql"
+    sql_name            = "wissen-nodejs-app-gcp-mysql"
     database_version    = "MYSQL_5_7"
     tier                = "db-f1-micro"
     deletion_protection = "false"

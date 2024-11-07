@@ -43,7 +43,7 @@ module "svc" {
   role         = each.value["role"]
   # members = each.value["service_account_id"]
 }
-module "container_registry" {
+/* module "container_registry" {
   source   = "./modules/Container_Registry"
   for_each = { for i in var.registry_config : i.repository_id => i }
   project  = each.value["project"]
@@ -52,7 +52,7 @@ module "container_registry" {
   repository_id = each.value["repository_id"]
   description   = each.value["description"]
   format        = each.value["format"]
-}
+} */
 module "cloudRun" {
   source     = "./modules/cloudrun"
   for_each   = { for i in var.cloudrunsql_config : i.name => i }

@@ -11,7 +11,7 @@ resource "google_sql_database_instance" "instance" {
       
     }
       ip_configuration {
-        ssl_mode = true
+        ssl_mode = "ENCRYPTED_ONLY"
     }
 
 }
