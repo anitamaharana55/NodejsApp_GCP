@@ -30,9 +30,13 @@ pipeline {
                 ])
             }
         }
-        stage('Checkov Scan') {
+        stage('Install Packages') {
             steps {
                 sh 'pip install --upgrade pip'
+            }
+        }
+        stage('Checkov Scan') {
+            steps {
                 sh 'pip install checkov'
                 sh 'checkov --version'
                 sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
