@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "an8249"
+    bucket = "terraformbackendmysqlapplication"
     prefix = "new/state"
   }
 }
