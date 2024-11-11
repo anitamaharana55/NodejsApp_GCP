@@ -47,7 +47,7 @@ pipeline {
         //         sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
         //     }
         // }
-        // stage('Terraform Init') {
+        stage('Terraform Init') {
             steps {
                 sh '''
                     if [ -d "$_PATH_TF" ]; then
