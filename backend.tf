@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
     bucket = "terraformbackendmysqlapplication"
-    prefix = "default.tfstate"
+    prefix = "new/state"
   }
 }
