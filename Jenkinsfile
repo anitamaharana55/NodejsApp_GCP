@@ -41,7 +41,9 @@ pipeline {
         stage("test"){
             steps {
                 script {
+                    dir('NodejsApp_GCP') {
                     sh 'terraform init'
+                    }
 
         }
             }
