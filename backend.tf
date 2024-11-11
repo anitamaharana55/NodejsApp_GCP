@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
     bucket = "terraformbackendmysqlapplication"
-    prefix = "terraform/jenkinsstate"
+    prefix = "terraform/state"
   }
 }
