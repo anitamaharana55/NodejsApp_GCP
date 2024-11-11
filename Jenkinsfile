@@ -38,40 +38,40 @@ pipeline {
                 }
             }
         }
-        stage("test"){
-            steps {
-                script {
-                                         
-                    sh '''
-                    echo "Initializing Terraform..."
-                    terraform -v  // Check terraform version
-                    terraform init 
-                                     
-                    '''
-                    }
-
-        }
-            }
-    
-        // stage('Terraform Init') {
+        // stage("test"){
         //     steps {
         //         script {
-        //             def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
-
-        //     // Check if the directory exists
-        //             if (fileExists(pathTF)) {
-        //             // Change into the directory and run terraform init
-        //             dir(pathTF) {
-        //             sh 'terraform init -reconfigure'
+                                         
+        //             sh '''
+        //             echo "Initializing Terraform..."
+        //             terraform -v  // Check terraform version
+        //             terraform init 
+                                     
+        //             '''
         //             }
-        //         } else {
-        //         // Handle case where the directory does not exist
-        //         echo "Directory '${pathTF}' does not exist. Please verify the path."
-        //         error "Terraform initialization failed: Directory not found."
-        //     }
+
         // }
         //     }
-        // }
+    
+        stage('Terraform Init') {
+            steps {
+                script {
+                    def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
+
+            // Check if the directory exists
+                    if (fileExists(pathTF)) {
+                    // Change into the directory and run terraform init
+                    dir(pathTF) {
+                    sh 'terraform init -reconfigure'
+                    }
+                } else {
+                // Handle case where the directory does not exist
+                echo "Directory '${pathTF}' does not exist. Please verify the path."
+                error "Terraform initialization failed: Directory not found."
+            }
+        }
+            }
+        }
         // stage('Terraform Plan') {
         //     steps {
         //         sh '''
