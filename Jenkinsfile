@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        _PATH_TF = "NodejsApp_GCP"
-        _TFACTION = "apply"
+        PATH_TF = "NodejsApp_GCP"
+        TFACTION = "apply"
         GCP_PROJECT_ID = 'gcp-cloudrun-nodejs-mysql-app'      
         GCP_CREDENTIALS = credentials('gcp-service-account-key') 
         GIT_CREDENTIALS_ID = 'git-credentials-id'
@@ -42,7 +42,17 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 sh '''
-                    terraform init -reconfigure
+                    if [ -d 'PATH_TF' ]; then
+                        terraform init -reconfigure
+                    else
+                        for dir in 'PATH_TF'; do
+                            cd "${dir}"
+                            env="${dir%/*}"
+                            env="${env#*/}"
+                            echo "${env}"
+                            terraform init -reconfigure || exit 1
+                        done
+                    fi
                 '''
             }
         }
