@@ -45,6 +45,7 @@ pipeline {
 
             // Check if the directory exists
                     if (fileExists(pathTF)) {
+                        cd(pathTF)
                     // Change into the directory and run terraform init
                     dir(pathTF) {
                     sh 'terraform init -reconfigure'
