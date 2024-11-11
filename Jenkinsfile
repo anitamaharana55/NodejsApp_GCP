@@ -36,7 +36,6 @@ pipeline {
                     // Make sure you're using the correct Python version
                     sh 'python3 -m venv venv'  // Create a virtual environment
                     sh './venv/bin/pip install --upgrade pip'  // Upgrade pip in virtualenv
-                    sh './venv/bin/pip install -r requirements.txt'  // Install dependencies
                 }
             }
         }
