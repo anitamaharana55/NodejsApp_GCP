@@ -45,9 +45,10 @@ pipeline {
                     sh '''
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
-                    terraform init -reconfigure
-                    terraform apply -lock=false
-                    
+                    terraform init \
+                            -backend-config="bucket=terraformbackendmysqlapplication" \
+                            -backend-config="prefix=new/state" 
+ 
                     terraform plan
                     terraform apply -auto-approve  
                                                    
