@@ -39,6 +39,12 @@ pipeline {
                 }
             }
         }
+        stage('Debug Workspace') {
+            steps {
+                sh 'pwd'  // Prints the current working directory
+                sh 'ls -R'  // List all files and directories in the workspace
+            }
+        }
         stage('Terraform Init') {
             steps {
                 script {
