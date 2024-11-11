@@ -8,5 +8,5 @@ variable "org_id" {
   type = number
 }
 variable "enable_network" {
-    type = bool
+  type = bool
 }
