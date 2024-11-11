@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH_TF = 'Infra-GCP'
+        PATH_TF = 'NodejsApp_GCP'
         TFACTION = "apply"
         GCP_PROJECT_ID = 'gcp-cloudrun-nodejs-mysql-app'      
         GCP_CREDENTIALS = credentials('gcp-service-account-key') 
@@ -38,55 +38,59 @@ pipeline {
                 }
             }
         }
-        stage('Terraform Init') {
+        stage("test"){
             steps {
-                script {
-                    def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
+                echo "test steps"
+            }
+        }
+        // stage('Terraform Init') {
+        //     steps {
+        //         script {
+        //             def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
 
-            // Check if the directory exists
-                    if (fileExists(pathTF)) {
-                        cd(pathTF)
-                    // Change into the directory and run terraform init
-                    dir(pathTF) {
-                    sh 'terraform init -reconfigure'
-                    }
-                } else {
-                // Handle case where the directory does not exist
-                echo "Directory '${pathTF}' does not exist. Please verify the path."
-                error "Terraform initialization failed: Directory not found."
-            }
-        }
-            }
-        }
-        stage('Terraform Plan') {
-            steps {
-                sh '''
-                    if [ -d "$_PATH_TF" ]; then
-                        terraform refresh
-                        terraform plan
-                    else
-                        for dir in $_PATH_TF; do
-                            cd "${dir}"
-                            env="${dir%/*}"
-                            env="${env#*/}"
-                            echo "${env}"
-                            terraform plan || exit 1
-                        done
-                    fi
-                '''
-            }
-        }
-        stage('Terraform Apply or Destroy') {
-            steps {
-                sh '''
-                    if [ -d "$_PATH_TF" ]; then
-                        terraform $_TFACTION -auto-approve
-                    else
-                        echo "$BRANCH_NAME"
-                    fi
-                '''
-            }
-        }
+        //     // Check if the directory exists
+        //             if (fileExists(pathTF)) {
+        //             // Change into the directory and run terraform init
+        //             dir(pathTF) {
+        //             sh 'terraform init -reconfigure'
+        //             }
+        //         } else {
+        //         // Handle case where the directory does not exist
+        //         echo "Directory '${pathTF}' does not exist. Please verify the path."
+        //         error "Terraform initialization failed: Directory not found."
+        //     }
+        // }
+        //     }
+        // }
+        // stage('Terraform Plan') {
+        //     steps {
+        //         sh '''
+        //             if [ -d "$_PATH_TF" ]; then
+        //                 terraform refresh
+        //                 terraform plan
+        //             else
+        //                 for dir in $_PATH_TF; do
+        //                     cd "${dir}"
+        //                     env="${dir%/*}"
+        //                     env="${env#*/}"
+        //                     echo "${env}"
+        //                     terraform plan || exit 1
+        //                 done
+        //             fi
+        //         '''
+        //     }
+        // }
+        // stage('Terraform Apply or Destroy') {
+        //     steps {
+        //         sh '''
+        //             if [ -d "$_PATH_TF" ]; then
+        //                 terraform $_TFACTION -auto-approve
+        //             else
+        //                 echo "$BRANCH_NAME"
+        //             fi
+        //         '''
+        //     }
+        // }
     }
 }
     
