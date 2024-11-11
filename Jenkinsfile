@@ -39,13 +39,6 @@ pipeline {
                 }
             }
         }
-        // stage('Checkov Scan') {
-        //     steps {
-        //         sh 'pip install checkov'
-        //         sh 'checkov --version'
-        //         sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
-        //     }
-        // }
         stage('Terraform Init') {
             steps {
                 sh '''
@@ -53,7 +46,6 @@ pipeline {
                         terraform init -reconfigure
                     else
                         for dir in $_PATH_TF; do
-                            cd "${dir}"
                             env="${dir%/*}"
                             env="${env#*/}"
                             echo "${env}"
