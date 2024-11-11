@@ -41,13 +41,18 @@ pipeline {
         stage("test"){
             steps {
                 script {
-                    dir('NodejsApp_GCP') {
-                    sh 'terraform init'
+                                         
+                    sh '''
+                    echo "Initializing Terraform..."
+                    terraform -v  // Check terraform version
+                    terraform init 
+                                     
+                    '''
                     }
 
         }
             }
-        }
+    
         // stage('Terraform Init') {
         //     steps {
         //         script {
