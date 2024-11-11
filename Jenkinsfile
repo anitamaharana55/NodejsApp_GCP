@@ -30,9 +30,14 @@ pipeline {
                 ])
             }
         }
-        stage('Install Packages') {
+        stage('Install dependencies') {
             steps {
-                sh 'pip install --upgrade pip'
+                script {
+                    // Make sure you're using the correct Python version
+                    sh 'python3 -m venv venv'  // Create a virtual environment
+                    sh './venv/bin/pip install --upgrade pip'  // Upgrade pip in virtualenv
+                    sh './venv/bin/pip install -r requirements.txt'  // Install dependencies
+                }
             }
         }
         stage('Checkov Scan') {
