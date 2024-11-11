@@ -42,10 +42,10 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 sh '''
-                    if [ -d 'PATH_TF' ]; then
+                    if [ -d "${PATH_TF}" ]; then
                         terraform init -reconfigure
                     else
-                        for dir in 'PATH_TF'; do
+                        for dir in "${PATH_TF}" ; do
                             cd "${dir}"
                             env="${dir%/*}"
                             env="${env#*/}"
