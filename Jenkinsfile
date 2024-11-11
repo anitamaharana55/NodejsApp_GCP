@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH_TF = 'NodejsApp_GCP'
+        PATH_TF = 'Infra-GCP'
         TFACTION = "apply"
         GCP_PROJECT_ID = 'gcp-cloudrun-nodejs-mysql-app'      
         GCP_CREDENTIALS = credentials('gcp-service-account-key') 
@@ -45,7 +45,7 @@ pipeline {
 
             // Check if the directory exists
                     if (fileExists(pathTF)) {
-                        
+                        cd(pathTF)
                     // Change into the directory and run terraform init
                     dir(pathTF) {
                     sh 'terraform init -reconfigure'
