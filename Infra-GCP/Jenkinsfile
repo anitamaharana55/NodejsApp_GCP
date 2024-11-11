@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH_TF = 'NodejsApp_GCP'
+        PATH_TF = 'Infra-GCP'
         TFACTION = "apply"
         GCP_PROJECT_ID = 'gcp-cloudrun-nodejs-mysql-app'      
         GCP_CREDENTIALS = credentials('gcp-service-account-key') 
