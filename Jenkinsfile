@@ -41,19 +41,8 @@ pipeline {
         stage("test"){
             steps {
                 script {
-                    def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
+                    sh 'terraform init'
 
-            // Check if the directory exists
-                    if (fileExists(pathTF)) {
-                    // Change into the directory and run terraform init
-                    dir(pathTF) {
-                    sh 'terraform init -reconfigure'
-                    }
-                } else {
-                // Handle case where the directory does not exist
-                echo "Directory '${pathTF}' does not exist. Please verify the path."
-                error "Terraform initialization failed: Directory not found."
-            }
         }
             }
         }
