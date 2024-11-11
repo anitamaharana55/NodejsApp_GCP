@@ -3,8 +3,22 @@ pipeline {
     environment {
         _PATH_TF = "NodejsApp_GCP"
         _TFACTION = "apply"
+        GCP_PROJECT_ID = 'gcp-cloudrun-nodejs-mysql-app'      
+        GCP_CREDENTIALS = credentials('gcp-service-account-key') 
     }
     stages {
+        stage('Authenticate to GCP') {
+            steps {
+                // Using the GCP service account key as a secret file
+                withCredentials([file(credentialsId: 'gcp-service-account-key', variable: 'GCP_KEY_FILE')]) {
+                    script {
+                        // Authenticate using the secret file path
+                        sh 'gcloud auth activate-service-account --key-file=$GCP_KEY_FILE'
+                        sh 'gcloud config set project ${GCP_PROJECT_ID}'
+                    }
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: '$BRANCH_NAME', url: 'https://github.com/anitamaharana55/NodejsApp_GCP.git'
