@@ -45,7 +45,10 @@ pipeline {
                     sh '''
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
-                    terraform init
+                    gsutil acl ch -u nodejsdemo@gcp-cloudrun-nodejs-mysql-app.iam.gserviceaccount.com:W gs://terraformbackendmysqlapplication/new/state/
+
+                    export TF_LOG=DEBUG
+                    terraform init -reconfigure
              
                                                    
                     '''
