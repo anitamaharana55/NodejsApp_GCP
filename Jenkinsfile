@@ -5,6 +5,8 @@ pipeline {
         _TFACTION = "apply"
         GCP_PROJECT_ID = 'gcp-cloudrun-nodejs-mysql-app'      
         GCP_CREDENTIALS = credentials('gcp-service-account-key') 
+        GIT_CREDENTIALS_ID = 'git-credentials-id'
+        GIT_REPO_URL = 'https://github.com/anitamaharana55/NodejsApp_GCP.git'
     }
     stages {
         stage('Authenticate to GCP') {
@@ -19,9 +21,13 @@ pipeline {
                 }
             }
         }
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                git branch: '$BRANCH_NAME', url: 'https://github.com/anitamaharana55/NodejsApp_GCP.git'
+                // Cloning the repository
+                checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/main']],          
+                    userRemoteConfigs: [[url: "${GIT_REPO_URL}", credentialsId: "${GIT_CREDENTIALS_ID}"]]
+                ])
             }
         }
         stage('Checkov Scan') {
