@@ -38,54 +38,69 @@ pipeline {
                 }
             }
         }
-        stage('Terraform Init') {
+        stage("test"){
             steps {
                 script {
-                    def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
-
-            // Check if the directory exists
-                    if (fileExists(pathTF)) {
-                    // Change into the directory and run terraform init
-                    dir(pathTF) {
-                    sh 'terraform init -reconfigure'
+                                         
+                    sh '''
+                    echo "Initializing Terraform..."
+                    terraform -v  // Check terraform version
+                    terraform init 
+                    terraform plan
+                                     
+                    '''
                     }
-                } else {
-                // Handle case where the directory does not exist
-                echo "Directory '${pathTF}' does not exist. Please verify the path."
-                error "Terraform initialization failed: Directory not found."
-            }
+
         }
             }
-        }
-        stage('Terraform Plan') {
-            steps {
-                sh '''
-                    if [ -d '${PATH_TF}' ]; then
-                        terraform refresh
-                        terraform plan
-                    else
-                        for dir in '${PATH_TF}'; do
-                            cd "${dir}"
-                            env="${dir%/*}"
-                            env="${env#*/}"
-                            echo "${env}"
-                            terraform plan || exit 1
-                        done
-                    fi
-                '''
-            }
-        }
-        stage('Terraform Apply or Destroy') {
-            steps {
-                sh '''
-                    if [ -d '${PATH_TF}' ]; then
-                        terraform $_TFACTION -auto-approve
-                    else
-                        echo "$BRANCH_NAME"
-                    fi
-                '''
-            }
-        }
+        // stage('Terraform Init') {
+        //     steps {
+        //         script {
+        //             def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
+
+        //     // Check if the directory exists
+        //             if (fileExists(pathTF)) {
+        //             // Change into the directory and run terraform init
+        //             dir(pathTF) {
+        //             sh 'terraform init -reconfigure'
+        //             }
+        //         } else {
+        //         // Handle case where the directory does not exist
+        //         echo "Directory '${pathTF}' does not exist. Please verify the path."
+        //         error "Terraform initialization failed: Directory not found."
+        //     }
+        // }
+        //     }
+        // }
+        // stage('Terraform Plan') {
+        //     steps {
+        //         sh '''
+        //             if [ -d '${PATH_TF}' ]; then
+        //                 terraform refresh
+        //                 terraform plan
+        //             else
+        //                 for dir in '${PATH_TF}'; do
+        //                     cd "${dir}"
+        //                     env="${dir%/*}"
+        //                     env="${env#*/}"
+        //                     echo "${env}"
+        //                     terraform plan || exit 1
+        //                 done
+        //             fi
+        //         '''
+        //     }
+        // }
+        // stage('Terraform Apply or Destroy') {
+        //     steps {
+        //         sh '''
+        //             if [ -d '${PATH_TF}' ]; then
+        //                 terraform $_TFACTION -auto-approve
+        //             else
+        //                 echo "$BRANCH_NAME"
+        //             fi
+        //         '''
+        //     }
+        // }
     }
 }
     
