@@ -38,21 +38,6 @@ pipeline {
                 }
             }
         }
-        // stage("test"){
-        //     steps {
-        //         script {
-                                         
-        //             sh '''
-        //             echo "Initializing Terraform..."
-        //             terraform -v  // Check terraform version
-        //             terraform init 
-                                     
-        //             '''
-        //             }
-
-        // }
-        //     }
-    
         stage('Terraform Init') {
             steps {
                 script {
@@ -72,35 +57,35 @@ pipeline {
         }
             }
         }
-        // stage('Terraform Plan') {
-        //     steps {
-        //         sh '''
-        //             if [ -d "$_PATH_TF" ]; then
-        //                 terraform refresh
-        //                 terraform plan
-        //             else
-        //                 for dir in $_PATH_TF; do
-        //                     cd "${dir}"
-        //                     env="${dir%/*}"
-        //                     env="${env#*/}"
-        //                     echo "${env}"
-        //                     terraform plan || exit 1
-        //                 done
-        //             fi
-        //         '''
-        //     }
-        // }
-        // stage('Terraform Apply or Destroy') {
-        //     steps {
-        //         sh '''
-        //             if [ -d "$_PATH_TF" ]; then
-        //                 terraform $_TFACTION -auto-approve
-        //             else
-        //                 echo "$BRANCH_NAME"
-        //             fi
-        //         '''
-        //     }
-        // }
+        stage('Terraform Plan') {
+            steps {
+                sh '''
+                    if [ -d '${PATH_TF}' ]; then
+                        terraform refresh
+                        terraform plan
+                    else
+                        for dir in '${PATH_TF}'; do
+                            cd "${dir}"
+                            env="${dir%/*}"
+                            env="${env#*/}"
+                            echo "${env}"
+                            terraform plan || exit 1
+                        done
+                    fi
+                '''
+            }
+        }
+        stage('Terraform Apply or Destroy') {
+            steps {
+                sh '''
+                    if [ -d '${PATH_TF}' ]; then
+                        terraform $_TFACTION -auto-approve
+                    else
+                        echo "$BRANCH_NAME"
+                    fi
+                '''
+            }
+        }
     }
 }
     
