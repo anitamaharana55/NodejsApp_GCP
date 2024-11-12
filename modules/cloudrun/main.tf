@@ -41,7 +41,7 @@ data "google_iam_policy" "noauth" {
 
   binding {
     role    = "roles/run.invoker"
-    members = ["user:umesh.bura@wissen.com",]
+    members = ["allUsers",]
   }
 }
 resource "google_cloud_run_service_iam_policy" "noauth" {
