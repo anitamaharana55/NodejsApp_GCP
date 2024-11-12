@@ -79,7 +79,7 @@ pipeline {
         stage('Terraform Apply or Destroy') {
             steps {
                 sh '''
-                    terraform destroy -auto-approve
+                    terraform apply -auto-approve
                 '''
             }
         }
