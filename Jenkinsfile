@@ -31,14 +31,14 @@ pipeline {
                 ])
             }
         }
-        stage('Install dependencies') {
-            steps {
-                script {
-                    sh 'python3 -m venv venv'  
-                    sh './venv/bin/pip install --upgrade pip'  
-                }
-            }
-        }
+        // stage('Install dependencies') {
+        //     steps {
+        //         script {
+        //             sh 'python3 -m venv venv'  
+        //             sh './venv/bin/pip install --upgrade pip'  
+        //         }
+        //     }
+        // }
         stage('Checkov Scan') {
             steps {
                 sh 'pip install checkov'
