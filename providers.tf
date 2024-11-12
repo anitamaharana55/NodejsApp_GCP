@@ -1,5 +1,6 @@
 provider "google" {
   region = "us-central1"
+  scopes      = ["https://www.googleapis.com/auth/cloud-platform"]
 }
 terraform {
   required_providers {
