@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
     bucket = "terraformbackendmysqlapplication"
-    prefix = "backend/terraform"
+    prefix = "new/state"
   }
 }

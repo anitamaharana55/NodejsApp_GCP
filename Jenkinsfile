@@ -7,6 +7,7 @@ pipeline {
         GCP_CREDENTIALS = credentials('gcp-service-account-key') 
         GIT_CREDENTIALS_ID = 'git-credentials-id'
         GIT_REPO_URL = 'https://github.com/anitamaharana55/NodejsApp_GCP.git'
+        CLIENT_EMAIL='nodejsdemo@gcp-cloudrun-nodejs-mysql-app.iam.gserviceaccount.com'
     }
     stages {
         stage('Authenticate to GCP') {
@@ -33,8 +34,8 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 script {
-                    sh 'python3 -m venv venv'  // Create a virtual environment
-                    sh './venv/bin/pip install --upgrade pip'  // Upgrade pip in virtualenv
+                    sh 'python3 -m venv venv'  
+                    sh './venv/bin/pip install --upgrade pip'  
                 }
             }
         }
@@ -57,17 +58,13 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    def pathTF = "${env.PATH_TF}"  // Get the PATH_TF environment variable
-
-            // Check if the directory exists
+                    def pathTF = "${env.PATH_TF}"  
                     if (fileExists(pathTF)) {
-                    // Change into the directory and run terraform init
                     dir(pathTF) {
                     sh 'terraform init -reconfigure'
                     sh 'terraform plan'
                     }
                 } else {
-                // Handle case where the directory does not exist
                 echo "Directory '${pathTF}' does not exist. Please verify the path."
                 error "Terraform initialization failed: Directory not found."
             }
