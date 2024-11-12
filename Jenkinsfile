@@ -47,7 +47,7 @@ pipeline {
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
                     terraform init -reconfigure
-                    terraform apply -lock=false
+                    terraform apply -lock=false -auto-approve
 
                     terraform plan                             
                     '''
