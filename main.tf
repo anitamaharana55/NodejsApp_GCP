@@ -33,16 +33,16 @@ module "vpc" {
 }
 
 
-module "svc" {
-  source       = "./modules/service-account"
-  for_each     = { for i in var.svc_config : i.account_id => i }
-  project_id   = each.value["project"]
-  account_id   = each.value["account_id"]
-  display_name = each.value["display_name"]
-  description  = each.value["description"]
-  role         = each.value["role"]
-  # members = each.value["service_account_id"]
-}
+# module "svc" {
+#   source       = "./modules/service-account"
+#   for_each     = { for i in var.svc_config : i.account_id => i }
+#   project_id   = each.value["project"]
+#   account_id   = each.value["account_id"]
+#   display_name = each.value["display_name"]
+#   description  = each.value["description"]
+#   role         = each.value["role"]
+#   # members = each.value["service_account_id"]
+# }
 
 #contianer registery
 /* module "container_registry" {
