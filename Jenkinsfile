@@ -31,14 +31,14 @@ pipeline {
                 ])
             }
         }
-        stage('Install dependencies') {
-            steps {
-                script {
-                    sh 'sudo apt-get update && sudo apt-get install -y python3-venv'  
-                    sh 'sudo ./venv/bin/pip install --upgrade pip'  
-                }
-            }
-        }
+        // stage('Install dependencies') {
+        //     steps {
+        //         script {
+        //             sh 'apt-get update && sudo apt-get install -y python3-venv'  
+        //             sh './venv/bin/pip install --upgrade pip'  
+        //         }
+        //     }
+        // }
         // stage("test"){
         //     steps {
         //         script {
