@@ -39,65 +39,50 @@ pipeline {
         //         }
         //     }
         // }
-        stage("terraform init"){
-            steps {
-                script {            
-                    sh '''
-                    echo "Initializing Terraform..."
-                    terraform -v  
-                    terraform init -reconfigure  
-                    terraform plan                        
-                    '''
+                // stage('Checkov Scan') {
+        //     steps {
+        //         sh 'pip install checkov'
+        //         sh 'checkov --version'
+        //         sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
+        //     }
+        // }
+        // stage("terraform init"){
+        //     steps {
+        //         script {            
+        //             sh '''
+        //             echo "Initializing Terraform..."
+        //             terraform -v  
+        //             terraform init -reconfigure  
+        //             terraform plan                        
+        //             '''
                     
 
+        // }
+        //     }
+        // }
+        stage('Terraform Init') {
+            steps {
+                sh '''
+                    terraform init -reconfigure
+                '''
         }
             }
+        
+        stage('Terraform Plan') {
+            steps {
+                sh '''
+                        terraform refresh
+                        terraform plan
+                '''
+            }
         }
-        // stage('Terraform Init') {
-        //     steps {
-        //         script {
-        //             def pathTF = "${env.PATH_TF}"  
-        //             if (fileExists(pathTF)) {
-        //             dir(pathTF) {
-        //             sh 'terraform init -reconfigure'
-        //             sh 'terraform plan'
-        //             }
-        //         } else {
-        //         echo "Directory '${pathTF}' does not exist. Please verify the path."
-        //         error "Terraform initialization failed: Directory not found."
-        //     }
-        // }
-        //     }
-        // }
-        // stage('Terraform Plan') {
-        //     steps {
-        //         sh '''
-        //             if [ -d '${PATH_TF}' ]; then
-        //                 terraform refresh
-        //                 terraform plan
-        //             else
-        //                 for dir in '${PATH_TF}'; do
-        //                     cd "${dir}"
-        //                     env="${dir%/*}"
-        //                     env="${env#*/}"
-        //                     echo "${env}"
-        //                     terraform plan || exit 1
-        //                 done
-        //             fi
-        //         '''
-        //     }
-        // }
-        // stage('Terraform Apply or Destroy') {
-        //     steps {
-        //         sh '''
-        //             if [ -d '${PATH_TF}' ]; then
-        //                 terraform $_TFACTION -auto-approve
-        //             else
-        //                 echo "$BRANCH_NAME"
-        //             fi
-        //         '''
-        //     }
-        // }
+        stage('Terraform Apply or Destroy') {
+            steps {
+                sh '''
+                        terraform apply -auto-approve
+                '''
+            }
+        }
     }
 }
     

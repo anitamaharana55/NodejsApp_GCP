@@ -33,16 +33,16 @@ module "vpc" {
 }
 
 
-# module "svc" {
-#   source       = "./modules/service-account"
-#   for_each     = { for i in var.svc_config : i.account_id => i }
-#   project_id   = each.value["project"]
-#   account_id   = each.value["account_id"]
-#   display_name = each.value["display_name"]
-#   description  = each.value["description"]
-#   role         = each.value["role"]
-#   # members = each.value["service_account_id"]
-# }
+module "svc" {
+  source       = "./modules/service-account"
+  for_each     = { for i in var.svc_config : i.account_id => i }
+  project_id   = each.value["project"]
+  account_id   = each.value["account_id"]
+  display_name = each.value["display_name"]
+  description  = each.value["description"]
+  role         = each.value["role"]
+  # members = each.value["service_account_id"]
+}
 
 #contianer registery
 /* module "container_registry" {
@@ -133,14 +133,14 @@ module "cloudSql" {
   export_custom_routes = each.value["export_custom_routes"]
 }
 
-# module "secret-manager" {
-#   source    = "./modules/secret-manager"
-#   for_each  = { for i in var.secret_config : i.secret_id => i }
-#   secret_id = each.value["secret_id"]
-#   project   = each.value["project"]
-#   label     = each.value["label"]
-#   location  = each.value["location"]
-# }
+module "secret-manager" {
+  source    = "./modules/secret-manager"
+  for_each  = { for i in var.secret_config : i.secret_id => i }
+  secret_id = each.value["secret_id"]
+  project   = each.value["project"]
+  label     = each.value["label"]
+  location  = each.value["location"]
+}
 
 /* module "serverless_vpc_access" {
   source = "./modules/vpc_connector"

@@ -32,13 +32,13 @@ VPC_config = [
     target_tags   = ["http-server"]
 
 }]
-# svc_config = [{
-#   project      = "gcp-cloudrun-nodejs-mysql-app"
-#   account_id   = "nodejs-app-gcp-service-account"
-#   display_name = "wissen nodejs app gcp Service Account"
-#   description  = "This is a service account created by Terraform."
-#   role = "roles/iam.serviceAccountUser"
-# }]
+svc_config = [{
+  project      = "gcp-cloudrun-nodejs-mysql-app"
+  account_id   = "nodejs-app-gcp-service-account"
+  display_name = "wissen nodejs app gcp Service Account"
+  description  = "This is a service account created by Terraform."
+  role = "roles/iam.serviceAccountUser"
+}]
 registry_config = [
   {
     project = "gcp-cloudrun-nodejs-mysql-app"
@@ -110,12 +110,12 @@ sql_config = [
   
   }
 ]
-# secret_config = [{
-#   secret_id = "secret"
-#   project   = "gcp-cloudrun-nodejs-mysql-app"
-#   label     = "my-label"
-#   location  = "us-east1"
-# }]
+secret_config = [{
+  secret_id = "secret"
+  project   = "gcp-cloudrun-nodejs-mysql-app"
+  label     = "my-label"
+  location  = "us-east1"
+}]
 
 
 vpc_connector_config = [
