@@ -1,0 +1,64 @@
+name: Terraform Deployment Workflow
+ 
+on:
+  push:
+    branches:
+      - main  # Replace with your desired branch name
+ 
+env:
+  TF_VERSION: '1.9.8'  # Specify the version of Terraform you want to use
+ 
+jobs:
+  terraform:
+    runs-on: ubuntu-latest  # or another image suitable for your environment
+ 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+ 
+    - name: Install Terraform
+      run: |
+        echo "Installing Terraform..."
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        sudo apt-add-repository "deb https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install terraform=${{ env.TF_VERSION }}-1
+ 
+    - name: Verify Terraform installation
+      run: |
+        echo "Verifying Terraform installation..."
+        terraform -version
+ 
+    - name: Install Checkov
+      run: |
+        echo "Installing Checkov..."
+        python3 -m pip install --upgrade pip
+        python3 -m pip install checkov
+ 
+    - name: Run Checkov security scan on Terraform files
+      run: |
+        echo "Running Checkov security scan on Terraform files..."
+        cd NodejsApp_GCP/
+        checkov -d .
+ 
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: "${{ secrets.GCP_SA_KEY }}"  # Use GCP service account JSON key
+ 
+    - name: Initialize Terraform
+      run: |
+        echo "Initializing Terraform..."
+        cd NodejsApp_GCP/
+        terraform init
+ 
+    - name: Run Terraform Plan
+      run: |
+        echo "Running Terraform Plan..."
+        cd NodejsApp_GCP/
+        terraform plan -out=tfplan
+ 
+    - name: Apply Terraform Plan
+      run: |
+        echo "Applying Terraform Plan..."
+        cd NodejsApp_GCP/
+        terraform apply -auto-approve tfplan
