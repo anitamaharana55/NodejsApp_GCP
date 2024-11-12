@@ -71,15 +71,15 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 sh '''
-                        terraform refresh
-                        terraform plan
+                    terraform refresh
+                    terraform plan
                 '''
             }
         }
         stage('Terraform Apply or Destroy') {
             steps {
                 sh '''
-                        terraform apply -auto-approve
+                    terraform apply -auto-approve
                 '''
             }
         }
