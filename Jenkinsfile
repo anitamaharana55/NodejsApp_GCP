@@ -64,6 +64,7 @@ pipeline {
                     // Change into the directory and run terraform init
                     dir(pathTF) {
                     sh 'terraform init -reconfigure'
+                    sh 'terraform plan'
                     }
                 } else {
                 // Handle case where the directory does not exist
