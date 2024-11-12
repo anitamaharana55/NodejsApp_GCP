@@ -39,36 +39,36 @@ pipeline {
         //         }
         //     }
         // }
-        // stage("terraform init"){
-        //     steps {
-        //         script {
-                                         
-        //             sh '''
-        //             echo "Initializing Terraform..."
-        //             terraform -v  // Check terraform version
-        //             cd "${PATH_TF}"
-        //             terraform init -reconfigure                          
-        //             '''
-        //             }
-
-        // }
-        //     }
-        stage('Terraform Init') {
+        stage("terraform init"){
             steps {
                 script {
-                    def pathTF = "${env.PATH_TF}"  
-                    if (fileExists(pathTF)) {
-                    dir(pathTF) {
-                    sh 'terraform init -reconfigure'
-                    sh 'terraform plan'
+                                         
+                    sh '''
+                    echo "Initializing Terraform..."
+                    terraform -v  // Check terraform version
+                    cd "${dir}"
+                    terraform init -reconfigure                          
+                    '''
                     }
-                } else {
-                echo "Directory '${pathTF}' does not exist. Please verify the path."
-                error "Terraform initialization failed: Directory not found."
-            }
+
         }
             }
-        }
+        // stage('Terraform Init') {
+        //     steps {
+        //         script {
+        //             def pathTF = "${env.PATH_TF}"  
+        //             if (fileExists(pathTF)) {
+        //             dir(pathTF) {
+        //             sh 'terraform init -reconfigure'
+        //             sh 'terraform plan'
+        //             }
+        //         } else {
+        //         echo "Directory '${pathTF}' does not exist. Please verify the path."
+        //         error "Terraform initialization failed: Directory not found."
+        //     }
+        // }
+        //     }
+        // }
         // stage('Terraform Plan') {
         //     steps {
         //         sh '''
