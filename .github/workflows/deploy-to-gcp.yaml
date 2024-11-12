@@ -33,6 +33,13 @@ jobs:
         echo "Installing Checkov..."
         python3 -m pip install --upgrade pip
         python3 -m pip install checkov
+        
+    - name: Print current directory (Initial)
+      run: |
+        echo "Current directory at the start of the workflow:"
+        pwd
+        echo "Listing contents:"
+        ls -la
  
     - name: Run Checkov security scan on Terraform files
       run: |
