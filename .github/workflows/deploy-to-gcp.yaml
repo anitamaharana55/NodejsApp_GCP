@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main  # Replace with your desired branch name
+
+permissions:
+  contents: read  # Set only the required permissions, e.g., read-only access to repository contents   
  
 env:
   TF_VERSION: '1.9.8'  # Specify the version of Terraform you want to use
