@@ -73,24 +73,24 @@ pipeline {
         }
             }
         }
-        // stage('Terraform Plan') {
-        //     steps {
-        //         sh '''
-        //             if [ -d '${PATH_TF}' ]; then
-        //                 terraform refresh
-        //                 terraform plan
-        //             else
-        //                 for dir in '${PATH_TF}'; do
-        //                     cd "${dir}"
-        //                     env="${dir%/*}"
-        //                     env="${env#*/}"
-        //                     echo "${env}"
-        //                     terraform plan || exit 1
-        //                 done
-        //             fi
-        //         '''
-        //     }
-        // }
+        stage('Terraform Plan') {
+            steps {
+                sh '''
+                    if [ -d '${PATH_TF}' ]; then
+                        terraform refresh
+                        terraform plan
+                    else
+                        for dir in '${PATH_TF}'; do
+                            cd "${dir}"
+                            env="${dir%/*}"
+                            env="${env#*/}"
+                            echo "${env}"
+                            terraform plan || exit 1
+                        done
+                    fi
+                '''
+            }
+        }
         // stage('Terraform Apply or Destroy') {
         //     steps {
         //         sh '''
