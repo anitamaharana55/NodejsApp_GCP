@@ -46,7 +46,7 @@ pipeline {
                     sh '''
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
-                    cd "${dir}"
+                    ls
                     terraform init -reconfigure                          
                     '''
                     }
