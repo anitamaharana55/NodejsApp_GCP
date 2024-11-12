@@ -42,17 +42,17 @@ pipeline {
         stage("terraform init"){
             steps {
                 script {
-                                         
+                         dir('NodejsApp_GCP')   {             
                     sh '''
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
-                    ls
                     terraform init -reconfigure                          
                     '''
                     }
 
         }
             }
+        }
         // stage('Terraform Init') {
         //     steps {
         //         script {
