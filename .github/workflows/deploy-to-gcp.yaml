@@ -54,17 +54,17 @@ jobs:
       with:
         credentials_json: "${{ secrets.GCP_SA_KEY }}"  # Use GCP service account JSON key
  
-    - name: Initialize Terraform
-      run: |
-        echo "Initializing Terraform..."
-        terraform init
+    # - name: Initialize Terraform
+    #   run: |
+    #     echo "Initializing Terraform..."
+    #     terraform init
  
-    - name: Run Terraform Plan
-      run: |
-        echo "Running Terraform Plan..."
-        terraform plan -out=tfplan
+    # - name: Run Terraform Plan
+    #   run: |
+    #     echo "Running Terraform Plan..."
+    #     terraform plan -out=tfplan
  
-    - name: Apply Terraform Plan
-      run: |
-        echo "Applying Terraform Plan..."
-        terraform Apply -auto-approve 
+    # - name: Apply Terraform Plan
+    #   run: |
+    #     echo "Applying Terraform Plan..."
+    #     terraform apply -auto-approve 

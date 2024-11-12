@@ -88,7 +88,7 @@ module "cloudSql" {
   location         = each.value["location"]
   project_id       = each.value["project_id"]
   sql_name         = each.value["sql_name"]
-  database_version = each.value["database_version"]
+  # database_version = each.value["database_version"]
   # settings = {
   #    tier = each.value.settings["tier"]
   #   backup_configuration = {
@@ -109,18 +109,18 @@ module "cloudSql" {
   deletion_protection = each.value["deletion_protection"]
   sql_user_name       = each.value["sql_user_name"]
   sql_user_pass       = each.value["sql_user_pass"]
-    private-network-name                    = each.value["private-network-name"]
-  auto_create_subnetworks = each.value["auto_create_subnetworks"]
-  private-ip-address-name = each.value["private-ip-address-name"]
-  purpose = each.value["purpose"]
-  address_type = each.value["address_type"]
-  prefix_length = each.value["prefix_length"]
-   service = each.value["service"]
-   firewall_name = each.value["firewall_name"]
-   protocol = each.value["protocol"]
-     direction = each.value["direction"]
-  priority  = each.value["priority"]
-  source_ranges = each.value["source_ranges"]
+  #   private-network-name                    = each.value["private-network-name"]
+  # auto_create_subnetworks = each.value["auto_create_subnetworks"]
+  # private-ip-address-name = each.value["private-ip-address-name"]
+  # purpose = each.value["purpose"]
+  # address_type = each.value["address_type"]
+  # prefix_length = each.value["prefix_length"]
+  #  service = each.value["service"]
+  #  firewall_name = each.value["firewall_name"]
+  #  protocol = each.value["protocol"]
+  #    direction = each.value["direction"]
+  # priority  = each.value["priority"]
+  # source_ranges = each.value["source_ranges"]
 
   # backup_configuration = {
   #       enabled            = each.value.backup_configuration["enabled"]
@@ -129,8 +129,8 @@ module "cloudSql" {
   #     ipv4_enabled = each.value["ipv4_enabled"]
   #     #       ssl_mode = each.value["ssl_mode"]
   #     # require_ssl = each.value["require_ssl"]
-        import_custom_routes = each.value["import_custom_routes"]
-  export_custom_routes = each.value["export_custom_routes"]
+  #       import_custom_routes = each.value["import_custom_routes"]
+  # export_custom_routes = each.value["export_custom_routes"]
 }
 
 module "secret-manager" {
