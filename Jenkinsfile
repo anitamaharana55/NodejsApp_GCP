@@ -47,6 +47,7 @@ pipeline {
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
                     terraform init -reconfigure
+                    terraform state push errored.tfstate
                     terraform apply -lock=false -auto-approve
 
                     terraform plan                             
