@@ -34,7 +34,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 script {
-                    sh 'python3 -m venv venv'  
+                    sh 'sudo apt-get update && sudo apt-get install -y python3-venv'  
                     sh 'sudo ./venv/bin/pip install --upgrade pip'  
                 }
             }
