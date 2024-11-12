@@ -11,7 +11,7 @@ variable "description" {
   type = string
 }
 variable "role" {
-  type = string
+  type = list(string)
 }
 # variable "members" {
   

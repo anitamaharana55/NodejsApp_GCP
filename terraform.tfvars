@@ -37,7 +37,7 @@ svc_config = [{
   account_id   = "nodejs-app-gcp-service-account"
   display_name = "wissen nodejs app gcp Service Account"
   description  = "This is a service account created by Terraform."
-  role = "roles/iam.serviceAccountUser"
+  role = ["roles/iam.serviceAccountUser" , "roles/iam.serviceAccounts.setIamPolicy"]
 }]
 registry_config = [
   {
