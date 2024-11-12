@@ -67,4 +67,4 @@ jobs:
     - name: Apply Terraform Plan
       run: |
         echo "Applying Terraform Plan..."
-        terraform Apply -auto-approve tfplan
+        terraform apply -auto-approve tfplan
