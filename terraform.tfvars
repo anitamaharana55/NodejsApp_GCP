@@ -75,7 +75,7 @@ sql_config = [
     location            = "us-central1"
     project_id          = "gcp-cloudrun-nodejs-mysql-app"
     sql_name            = "wissen-nodejs-app-gcp-mysql"
-    database_version    = "MYSQL_8_0"
+    # database_version    = "MYSQL_8_0"
     
     deletion_protection = false
     sql_user_name       = "nodejsuser"

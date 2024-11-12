@@ -26,48 +26,47 @@ variable "sql_user_pass" {
   description = "Login password of SQL database"
 }
 
-variable "database_version" {
-  type = string
-  default     = "MYSQL_8_0" 
-}
-variable "private-network-name" {
-    type        = string
-  description = "private-network-name"
-}
-variable "auto_create_subnetworks" {
-  type = bool
-}
-variable "private-ip-address-name" {
-  type = string
-  description = "private-ip-address-name"
-}
-variable "purpose" {
-  type = string
-}
-variable "address_type" {
-  type = string
-}
-variable "prefix_length" {
-  type = number
-}
-variable "service" {
-  type = string
-}
-variable "firewall_name" {
-  type = string
-}
-variable "protocol" {
-  type = string
-}
-variable "direction" {
-  type = string
-}
-variable "priority" {
-  type = number
-}
-variable "source_ranges" {
-  type = list(string)
-}
+# variable "database_version" {
+#   type = string 
+# }
+# variable "private-network-name" {
+#     type        = string
+#   description = "private-network-name"
+# }
+# variable "auto_create_subnetworks" {
+#   type = bool
+# }
+# variable "private-ip-address-name" {
+#   type = string
+#   description = "private-ip-address-name"
+# }
+# variable "purpose" {
+#   type = string
+# }
+# variable "address_type" {
+#   type = string
+# }
+# variable "prefix_length" {
+#   type = number
+# }
+# variable "service" {
+#   type = string
+# }
+# variable "firewall_name" {
+#   type = string
+# }
+# variable "protocol" {
+#   type = string
+# }
+# variable "direction" {
+#   type = string
+# }
+# variable "priority" {
+#   type = number
+# }
+# variable "source_ranges" {
+#   type = list(string)
+# }
 # variable "enabled" {
 #   type = bool
 # }
@@ -83,12 +82,12 @@ variable "source_ranges" {
 # variable "require_ssl" {
 #   type = bool
 # }
-variable "import_custom_routes" {
-  type = bool
-}
-variable "export_custom_routes" {
-  type = bool
-}
+# variable "import_custom_routes" {
+#   type = bool
+# }
+# variable "export_custom_routes" {
+#   type = bool
+# }
 # variable "backup_configuration" {
 #   type = object({
 #     enabled = bool
