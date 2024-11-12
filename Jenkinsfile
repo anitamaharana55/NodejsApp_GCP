@@ -31,24 +31,22 @@ pipeline {
                 ])
             }
         }
-        // stage('Install dependencies') {
-        //     steps {
-        //         script {
-        //             sh 'apt-get update && sudo apt-get install -y python3-venv'  
-        //             sh './venv/bin/pip install --upgrade pip'  
-        //         }
-        //     }
-        // }
-        stage("test"){
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'apt-get update && sudo apt-get install -y python3-venv'  
+                    sh './venv/bin/pip install --upgrade pip'  
+                }
+            }
+        }
+        stage("terraform init"){
             steps {
                 script {
                                          
                     sh '''
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
-                    terraform init 
-                    terraform plan
-                    terraform apply -auto-approve  
+                    terraform init  
                                                    
                     '''
                     }
@@ -71,35 +69,35 @@ pipeline {
         // }
         //     }
         // }
-        // stage('Terraform Plan') {
-        //     steps {
-        //         sh '''
-        //             if [ -d '${PATH_TF}' ]; then
-        //                 terraform refresh
-        //                 terraform plan
-        //             else
-        //                 for dir in '${PATH_TF}'; do
-        //                     cd "${dir}"
-        //                     env="${dir%/*}"
-        //                     env="${env#*/}"
-        //                     echo "${env}"
-        //                     terraform plan || exit 1
-        //                 done
-        //             fi
-        //         '''
-        //     }
-        // }
-        // stage('Terraform Apply or Destroy') {
-        //     steps {
-        //         sh '''
-        //             if [ -d '${PATH_TF}' ]; then
-        //                 terraform $_TFACTION -auto-approve
-        //             else
-        //                 echo "$BRANCH_NAME"
-        //             fi
-        //         '''
-        //     }
-        // }
+        stage('Terraform Plan') {
+            steps {
+                sh '''
+                    if [ -d '${PATH_TF}' ]; then
+                        terraform refresh
+                        terraform plan
+                    else
+                        for dir in '${PATH_TF}'; do
+                            cd "${dir}"
+                            env="${dir%/*}"
+                            env="${env#*/}"
+                            echo "${env}"
+                            terraform plan || exit 1
+                        done
+                    fi
+                '''
+            }
+        }
+        stage('Terraform Apply or Destroy') {
+            steps {
+                sh '''
+                    if [ -d '${PATH_TF}' ]; then
+                        terraform $_TFACTION -auto-approve
+                    else
+                        echo "$BRANCH_NAME"
+                    fi
+                '''
+            }
+        }
     }
 }
     
