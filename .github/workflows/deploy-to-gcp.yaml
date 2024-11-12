@@ -33,7 +33,7 @@ jobs:
         echo "Installing Checkov..."
         python3 -m pip install --upgrade pip
         python3 -m pip install checkov
-        
+
     - name: Print current directory (Initial)
       run: |
         echo "Current directory at the start of the workflow:"
@@ -44,7 +44,7 @@ jobs:
     - name: Run Checkov security scan on Terraform files
       run: |
         echo "Running Checkov security scan on Terraform files..."
-        cd ./NodejsApp_GCP/
+        cd /NodejsApp_GCP/NodejsApp_GCP/
         checkov -d .
  
     - name: Authenticate to Google Cloud
@@ -55,17 +55,17 @@ jobs:
     - name: Initialize Terraform
       run: |
         echo "Initializing Terraform..."
-        cd ./NodejsApp_GCP/
+        cd /NodejsApp_GCP/NodejsApp_GCP/
         terraform init
  
     - name: Run Terraform Plan
       run: |
         echo "Running Terraform Plan..."
-        cd ./NodejsApp_GCP/
+        cd /NodejsApp_GCP/NodejsApp_GCP/
         terraform plan -out=tfplan
  
     - name: Apply Terraform Plan
       run: |
         echo "Applying Terraform Plan..."
-        cd ./NodejsApp_GCP/
+        cd /NodejsApp_GCP/NodejsApp_GCP/
         terraform apply -auto-approve tfplan
