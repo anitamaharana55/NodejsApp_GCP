@@ -46,7 +46,7 @@ pipeline {
                     sh '''
                     echo "Initializing Terraform..."
                     terraform -v  // Check terraform version
-                    terraform init -migrate-state 
+                    terraform init -reconfigure
                                                    
                     '''
                     }
