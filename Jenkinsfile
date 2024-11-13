@@ -35,54 +35,21 @@ pipeline {
                 ])
             }
         }
-        
         stage('Install dependencies') {
             steps {
                 script {
-            // Install python3-venv package (make sure the system has it installed)
-                    sh '''
-                        if ! dpkg -l | grep -q python3.11-venv; then
-                        sudo apt-get update && sudo apt-get install -y python3.11-venv
-                        fi
-                    '''
-            
-            // Create the virtual environment
                     sh 'python3 -m venv venv'  
-            
-            // Upgrade pip inside the virtual environment
                     sh './venv/bin/pip install --upgrade pip'  
-             }
+                }
             }
         }
-
         stage('Checkov Scan') {
             steps {
-        // Install Checkov inside the virtual environment
-                sh './venv/bin/pip install checkov'
-
-        // Check Checkov version
-                sh './venv/bin/checkov --version'
-
-        // Run Checkov scan
-                sh './venv/bin/checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
+                sh 'pip install checkov'
+                sh 'checkov --version'
+                sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
             }
         }
-
-        // stage('Install dependencies') {
-        //     steps {
-        //         script {
-        //             sh 'python3 -m venv venv'  
-        //             sh './venv/bin/pip install --upgrade pip'  
-        //         }
-        //     }
-        // }
-        // stage('Checkov Scan') {
-        //     steps {
-        //         sh 'pip install checkov'
-        //         sh 'checkov --version'
-        //         sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
-        //     }
-        // }
         stage('Terraform Init') {
             steps {
                 sh '''
