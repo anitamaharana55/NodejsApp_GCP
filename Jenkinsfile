@@ -21,6 +21,7 @@ pipeline {
                         sh 'gcloud config set project ${GCP_PROJECT_ID}'
                         sh 'gcloud auth list'
                         sh 'gcloud config list'
+                        
                     }
                 }
             }
@@ -34,35 +35,21 @@ pipeline {
                 ])
             }
         }
-        // stage('Install dependencies') {
-        //     steps {
-        //         script {
-        //             sh 'python3 -m venv venv'  
-        //             sh './venv/bin/pip install --upgrade pip'  
-        //         }
-        //     }
-        // }
-        // stage('Checkov Scan') {
-        //     steps {
-        //         sh 'pip install checkov'
-        //         sh 'checkov --version'
-        //         sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
-        //     }
-        // }
-        // stage("terraform init"){
-        //     steps {
-        //         script {            
-        //             sh '''
-        //             echo "Initializing Terraform..."
-        //             terraform -v  
-        //             terraform init -reconfigure  
-        //             terraform plan                        
-        //             '''
-                    
-
-        // }
-        //     }
-        // }
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'python3 -m venv venv'  
+                    sh './venv/bin/pip install --upgrade pip'  
+                }
+            }
+        }
+        stage('Checkov Scan') {
+            steps {
+                sh 'pip install checkov'
+                sh 'checkov --version'
+                sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
+            }
+        }
         stage('Terraform Init') {
             steps {
                 sh '''
