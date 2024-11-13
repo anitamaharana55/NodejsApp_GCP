@@ -45,6 +45,8 @@ pipeline {
         // }
         stage('Checkov Scan') {
             steps {
+                sh 'pipx install checkov'
+                sh  'pipx ensurepath'
                 sh 'checkov --version'
                 sh 'checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
             }
