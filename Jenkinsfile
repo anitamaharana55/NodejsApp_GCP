@@ -43,17 +43,53 @@ pipeline {
         //         }
         //     }
         // }
+        // stage('Checkov Scan') {
+        //     steps {
+        //         sh 'python3 -m venv my_venv'
+        //         sh '. my_venv/bin/activate'
+        //         sh 'pip install pipx'
+        //         sh 'pipx install checkov'
+        //         sh 'pipx ensurepath'
+        //         sh 'checkov --version'
+        //         sh 'checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
+        //     }
+        // }
         stage('Checkov Scan') {
             steps {
-                sh 'python3 -m venv my_venv'
-                sh '. my_venv/bin/activate'
-                sh 'pip install pipx'
-                sh 'pipx install checkov'
-                sh 'pipx ensurepath'
-                sh 'checkov --version'
-                sh 'checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
-            }
+                script {
+                    echo "Setting up Python virtual environment and installing Checkov..."
+
+            // Create the virtual environment
+                    sh 'python3 -m venv venv'
+            
+            // Install pipx inside the virtual environment and ensure it's in PATH
+                    sh '''
+                        source venv/bin/activate  # Activate the virtual environment
+                        pip install --upgrade pip    # Upgrade pip to the latest version
+                        pip install pipx             # Install pipx inside the virtual environment
+                        pipx ensurepath              # Ensure that pipx is added to the path
+                    '''
+
+            // Install checkov using pipx
+                    sh '''
+                        source venv/bin/activate  # Activate the virtual environment again
+                        pipx install checkov         # Use pipx to install checkov
+                    '''
+
+            // Verify the Checkov version
+                    sh '''
+                        source venv/bin/activate  # Activate the virtual environment again
+                        checkov --version            # Verify checkov installation
+                    '''
+
+            // Run Checkov scan with specific rules skipped
+                    sh '''
+                        source venv/bin/activate  # Activate the virtual environment again
+                        checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)
+                    '''
         }
+    }
+}
         stage('Terraform Init') {
             steps {
                 sh '''
