@@ -37,17 +37,16 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                script {
-                    sh 'python3 -m venv venv'  
-                    sh './venv/bin/pip install --upgrade pip'  
-                    sh './venv/bin/pip install checkov'
+                script { 
+                    sh 'pip install --upgrade pip'  
+                    sh 'pip install checkov'
                 }
             }
         }
         stage('Checkov Scan') {
             steps {
-                sh './venv/bin/checkov --version'
-                sh './venv/bin/checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
+                sh 'checkov --version'
+                sh 'checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
             }
         }
         stage('Terraform Init') {
