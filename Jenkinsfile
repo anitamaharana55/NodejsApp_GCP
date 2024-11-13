@@ -46,7 +46,7 @@ pipeline {
         stage('Checkov Scan') {
             steps {
                 sh 'python3 -m venv my_venv'
-                sh -c 'source my_venv/bin/activate'
+                sh 'source my_venv/bin/activate'
                 sh 'pip install pipx'
                 sh 'pipx install checkov'
                 sh 'pipx ensurepath'
