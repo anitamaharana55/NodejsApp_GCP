@@ -80,18 +80,18 @@ sql_config = [
     deletion_protection = false
     sql_user_name       = "nodejsuser"
     sql_user_pass       = "Wissen12345"
-  # private-network-name                    = "private-network"
-  # auto_create_subnetworks = false
-  #   private-ip-address-name          = "private-ip-address"
-  # purpose       = "VPC_PEERING"
-  # address_type  = "INTERNAL"
-  # prefix_length = 16
-  # service                 = "servicenetworking.googleapis.com"
-  # firewall_name    = "deny-all-ingress"
-  # protocol = "all"
-  #   direction = "INGRESS"
-  # priority  = 1000  
-  # source_ranges = ["0.0.0.0/0"]
+  private-network-name                    = "private-network"
+  auto_create_subnetworks = false
+    private-ip-address-name          = "private-ip-address"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  service                 = "servicenetworking.googleapis.com"
+  firewall_name    = "deny-all-ingress"
+  protocol = "all"
+    direction = "INGRESS"
+  priority  = 1000  
+  source_ranges = ["0.0.0.0/0"]
   # settings = {
   #   tier                = "db-f1-micro"
   # backup_configuration = {
@@ -104,8 +104,8 @@ sql_config = [
   #     require_ssl = true
   # }
   # }
-  #       import_custom_routes = true
-  # export_custom_routes = true
+        import_custom_routes = true
+  export_custom_routes = true
   
   
   }
