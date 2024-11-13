@@ -80,7 +80,7 @@ pipeline {
                         . venv/bin/activate  # Ensure the virtual environment is activated
                         echo "Current PATH: $PATH"  # Debug: print the PATH to check if venv is in the path
                         which checkov  # Debug: print the location of checkov
-                        checkov -d NodejsApp_GCP . --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)
+                        checkov -d . NodejsApp_GCP  --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)
                     '''
         }
     }
