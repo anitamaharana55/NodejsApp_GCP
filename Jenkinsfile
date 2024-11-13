@@ -40,12 +40,12 @@ pipeline {
                 script {
                     sh 'python3 -m venv venv'  
                     sh './venv/bin/pip install --upgrade pip'  
+                    sh './venv/bin/pip install checkov'
                 }
             }
         }
         stage('Checkov Scan') {
             steps {
-                sh './venv/bin/pip install checkov'
                 sh './venv/bin/checkov --version'
                 sh './venv/bin/checkov -d . --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)'
             }
