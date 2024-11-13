@@ -84,7 +84,7 @@ pipeline {
 
             // Run Checkov scan with specific rules skipped
                     sh '''
-                        venv/bin/activate  # Activate the virtual environment again
+                        . venv/bin/activate  # Activate the virtual environment again
                         checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)
                     '''
         }
