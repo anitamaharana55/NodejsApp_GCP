@@ -35,14 +35,14 @@ pipeline {
                 ])
             }
         }
-        stage('Install dependencies') {
-            steps {
-                script { 
-                    sh 'pip install --upgrade pip'  
-                    sh 'pip install checkov'
-                }
-            }
-        }
+        // stage('Install dependencies') {
+        //     steps {
+        //         script { 
+        //             sh 'pip install --upgrade pip'  
+        //             sh 'pip install checkov'
+        //         }
+        //     }
+        // }
         stage('Checkov Scan') {
             steps {
                 sh 'checkov --version'
