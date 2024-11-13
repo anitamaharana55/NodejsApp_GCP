@@ -64,7 +64,7 @@ pipeline {
             
             // Install pipx inside the virtual environment and ensure it's in PATH
                     sh '''
-                        source venv/bin/activate  # Activate the virtual environment
+                        . venv/bin/activate  # Activate the virtual environment
                         pip install --upgrade pip    # Upgrade pip to the latest version
                         pip install pipx             # Install pipx inside the virtual environment
                         pipx ensurepath              # Ensure that pipx is added to the path
@@ -72,13 +72,13 @@ pipeline {
 
             // Install checkov using pipx
                     sh '''
-                        source venv/bin/activate  # Activate the virtual environment again
+                        . venv/bin/activate  # Activate the virtual environment again
                         pipx install checkov         # Use pipx to install checkov
                     '''
 
             // Verify the Checkov version
                     sh '''
-                        source venv/bin/activate  # Activate the virtual environment again
+                        . venv/bin/activate  # Activate the virtual environment again
                         checkov --version            # Verify checkov installation
                     '''
 
