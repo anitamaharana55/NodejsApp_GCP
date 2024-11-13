@@ -45,6 +45,7 @@ pipeline {
         // }
         stage('Checkov Scan') {
             steps {
+                sh 'pip install pipx'
                 sh 'pipx install checkov'
                 sh  'pipx ensurepath'
                 sh 'checkov --version'
